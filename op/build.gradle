@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.library'
+    id 'com.github.dcendents.android-maven'
+    id 'maven-publish'
+}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                // 相应变体
+                from components.debug
+                // 定义发布属性，一般为模块包名
+                groupId =  'cn.roy.logcanary'
+                // 一般填写项目信息比如utlis,upgrade等功能性简洁描述
+                artifactId = 'op'
+                // 版本号
+                version = rootProject.ext.libReleaseVersion
+            }
+        }
+        repositories {
+            mavenLocal()
+        }
+    }
+}
+
+apply from: "../common.gradle"
+dependencies {
+//    api project(path: ':core')
+    api "cn.roy.logcanary:core:$rootProject.ext.libReleaseVersion"
+    implementation ('com.google.auto.service:auto-service:1.0-rc4'){
+        transitive(false)
+    }
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
+}
+

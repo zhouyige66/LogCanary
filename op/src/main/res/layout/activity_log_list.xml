@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/v_control"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@mipmap/ic_float_log" />
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="80dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/shape_transparent_5dp"
+            android:drawableRight="@drawable/ic_log_spinner_dropdown"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="Verbose"
+            android:textColor="#fff"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/etFilter"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_transparent_5dp"
+            android:hint="请输入关键词"
+            android:imeOptions="actionSearch"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#EFEFEF"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:id="@+id/ic_action_more"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/selector_transparent_gray_3dp"
+            android:src="@drawable/ic_action_more" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

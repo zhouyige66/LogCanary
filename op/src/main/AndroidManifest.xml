@@ -1,0 +1,50 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.roy.logcanary.op">
+
+    <!--悬浮窗口权限-->
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--锁屏后台运行-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application>
+        <activity
+            android:name=".component.ApplyAlertWindowPermissionActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/ActivityThemeTransparent" />
+        <activity
+            android:name=".component.LogListActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_float_log"
+            android:label="FloatLog"
+            android:taskAffinity="cn.roy.logcanary.${applicationId}"
+            android:theme="@style/ActivityThemeNoTitle" />
+
+        <activity-alias
+            android:name="cn.roy.logcanary.op.component.FloatLogLauncherActivity"
+            android:enabled="true"
+            android:icon="@mipmap/ic_float_log"
+            android:label="FloatLog"
+            android:exported="true"
+            android:targetActivity=".component.LogListActivity"
+            android:taskAffinity="cn.roy.logcanary.${applicationId}"
+            android:theme="@style/ActivityThemeNoTitle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- Android TV launcher intent -->
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <service android:name=".component.LogService" android:exported="false"/>
+    </application>
+</manifest>
