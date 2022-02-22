@@ -21,6 +21,7 @@
             android:theme="@style/ActivityThemeTransparent" />
         <activity
             android:name=".component.LogListActivity"
+            android:exported="false"
             android:launchMode="singleTask"
             android:taskAffinity="cn.roy.logcanary.${applicationId}"
             android:theme="@style/ActivityThemeNoTitle" />
@@ -31,7 +32,8 @@
             android:exported="true"
             android:icon="@mipmap/ic_float_log"
             android:label="Logs"
-            android:targetActivity=".component.LogListActivity">
+            android:targetActivity=".component.LogListActivity"
+            android:taskAffinity="cn.roy.logcanary.${applicationId}">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

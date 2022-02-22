@@ -1,5 +1,5 @@
 rootProject.name = "LogCanary"
-//include ':app'
 include ':core'
 include ':op'
 include ':no_op'
+include ':app'

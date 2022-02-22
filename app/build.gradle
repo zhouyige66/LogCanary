@@ -1,0 +1,14 @@
+plugins {
+    id 'com.android.application'
+}
+
+apply from: "../common.gradle"
+android {
+    defaultConfig {
+        applicationId "cn.roy.logcanary.demo"
+    }
+}
+
+dependencies {
+    implementation project(path:":op")
+}
