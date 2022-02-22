@@ -31,5 +31,7 @@ dependencies {
         transitive(false)
     }
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
+    api 'org.slf4j:slf4j-api:1.7.25'
+    api 'com.github.tony19:logback-android:2.0.0'
 }
 

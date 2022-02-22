@@ -3,6 +3,9 @@ package cn.roy.logcanary.op;
 import android.content.Context;
 import android.content.Intent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +19,7 @@ import cn.roy.logcanary.op.bean.LogBean;
 import cn.roy.logcanary.op.bean.TagBean;
 import cn.roy.logcanary.op.component.LogService;
 import cn.roy.logcanary.op.util.AppOpsManagerUtil;
+import cn.roy.logcanary.op.util.LoggerUtil;
 
 /**
  * @Description: 代理
@@ -86,6 +90,28 @@ public final class LogCanaryDelegate {
     }
 
     public void addLog(int level, String tag, String msg) {
+        if (isSyncSaveLog) {
+            Logger logger = LoggerFactory.getLogger(tag);
+            switch (level) {
+                case LogBean.VERBOSE:
+                    logger.trace(msg);
+                    break;
+                case LogBean.DEBUG:
+                    logger.debug(msg);
+                    break;
+                case LogBean.INFO:
+                    logger.info(msg);
+                    break;
+                case LogBean.WARN:
+                    logger.warn(msg);
+                    break;
+                case LogBean.ERROR:
+                    logger.error(msg);
+                    break;
+                default:
+                    break;
+            }
+        }
         if (isEnable) {
             // TODO 序列化数据过长处理
             int length = msg.length();

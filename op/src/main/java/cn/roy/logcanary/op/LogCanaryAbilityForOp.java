@@ -7,6 +7,7 @@ import com.google.auto.service.AutoService;
 
 import cn.roy.logcanary.core.LogCanaryAbility;
 import cn.roy.logcanary.op.bean.LogBean;
+import cn.roy.logcanary.op.logback.LogConfigBuilder;
 
 /**
  * @Description: 监视工具
@@ -20,6 +21,7 @@ public class LogCanaryAbilityForOp implements LogCanaryAbility {
     @Override
     public void setContext(Context context) {
         LogCanaryDelegate.getInstance().setContext(context);
+        new LogConfigBuilder(context).buildDefault();
     }
 
     public void v(String tag, String msg) {
