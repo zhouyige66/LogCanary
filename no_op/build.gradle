@@ -24,8 +24,8 @@ afterEvaluate {
 }
 apply from: "../common.gradle"
 dependencies {
-    api project(path: ':core')
-//    api "cn.roy.logcanary:core:$rootProject.ext.libReleaseVersion"
+//    api project(path: ':core')
+    api "cn.roy.logcanary:core:$rootProject.ext.libReleaseVersion"
     implementation ('com.google.auto.service:auto-service:1.0-rc4'){
         transitive(false)
     }

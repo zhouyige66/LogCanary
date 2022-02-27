@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_white_8dp"
@@ -118,14 +119,29 @@
         android:background="@drawable/selector_transparent_gray">
 
         <TextView
+            android:id="@+id/tvSyncSaveLog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
             android:text="同步保存日志"
             android:textColor="@android:color/black"
             android:textSize="16dp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLogPath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/sSyncSaveLog"
+            android:layout_toRightOf="@+id/tvSyncSaveLog"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            tools:text="同步保存日志" />
 
         <Switch
             android:id="@+id/sSyncSaveLog"

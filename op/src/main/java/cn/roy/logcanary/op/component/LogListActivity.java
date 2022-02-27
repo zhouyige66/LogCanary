@@ -1,6 +1,7 @@
 package cn.roy.logcanary.op.component;
 
 import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -27,12 +29,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +45,8 @@ import cn.roy.logcanary.op.R;
 import cn.roy.logcanary.op.adapter.CommonAdapter;
 import cn.roy.logcanary.op.adapter.base.ViewHolder;
 import cn.roy.logcanary.op.bean.LogBean;
+import cn.roy.logcanary.op.logback.LogConfigBuilder;
+import cn.roy.logcanary.op.util.AndroidStorageUtil;
 import cn.roy.logcanary.op.util.AppOpsManagerUtil;
 import cn.roy.logcanary.op.view.LogListAdapter;
 
@@ -251,9 +257,18 @@ public class LogListActivity extends AppCompatActivity {
                 logCanaryDelegate.setEnable(b);
             });
             // 同步保存日志开关
+            TextView tvLogPath = bottomSheetDialog.findViewById(R.id.tvLogPath);
+            String externalFilesDir = AndroidStorageUtil.getExternalFilesDir(this);
+            String logFilePath = externalFilesDir.concat("log/log.txt");
+            tvLogPath.setText(logFilePath);
             Switch sSyncSaveLog = bottomSheetDialog.findViewById(R.id.sSyncSaveLog);
             sSyncSaveLog.setOnCheckedChangeListener((compoundButton, b) -> {
                 logCanaryDelegate.setSyncSaveLog(b);
+                if (b) {
+                    bottomSheetDialog.findViewById(R.id.tvLogPath).setVisibility(View.VISIBLE);
+                } else {
+                    bottomSheetDialog.findViewById(R.id.tvLogPath).setVisibility(View.GONE);
+                }
             });
             // 清除数据
             bottomSheetDialog.findViewById(R.id.vCleanData).setOnClickListener(v -> {
