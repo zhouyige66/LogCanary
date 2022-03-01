@@ -3,7 +3,6 @@ plugins {
     id 'maven-publish'
     id 'com.github.dcendents.android-maven'
 }
-group='com.gitee.zhouyige66'
 afterEvaluate {
     publishing {
         publications {
@@ -25,8 +24,8 @@ afterEvaluate {
 }
 apply from: "../common.gradle"
 dependencies {
-//    api project(path: ':core')
-    api "cn.roy.logcanary:core:$rootProject.ext.libReleaseVersion"
+    api project(path: ':core')// 本地开发调试使用
+//    api "cn.roy.logcanary:core:$rootProject.ext.libReleaseVersion"// 发布到本地仓库使用
     implementation ('com.google.auto.service:auto-service:1.0-rc4'){
         transitive(false)
     }
