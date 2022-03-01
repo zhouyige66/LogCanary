@@ -22,5 +22,4 @@ afterEvaluate {
         }
     }
 }
-
 apply from: "../common.gradle"

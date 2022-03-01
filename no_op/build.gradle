@@ -23,6 +23,7 @@ afterEvaluate {
     }
 }
 apply from: "../common.gradle"
+
 dependencies {
     api project(path: ':core')// 本地开发调试使用
 //    api "cn.roy.logcanary:core:$rootProject.ext.libReleaseVersion"// 发布到本地仓库使用
