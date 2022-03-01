@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.library'
     id 'maven-publish'
+    id 'com.github.dcendents.android-maven'
 }
+group='com.gitee.zhouyige66'
 afterEvaluate {
     publishing {
         publications {
