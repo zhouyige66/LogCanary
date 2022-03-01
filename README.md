@@ -3,8 +3,7 @@
 1. 起源：之前开发一个教育类App，应用有局域网内命令下发的使用场景，对于应用下发后，多个客户端是否收到下发的命令，没有一个方便的查看途径，所以考虑通过悬浮窗的形式，将信息输出到窗口。
 2. 命名：之前想到过使用FloatLog作为该库的名称，后觉得不合适，由于开发这个库的时候有些实现方式参照了Android应用开发中有两个使用较广泛的库：LeakCanary（用于监控应用内存泄漏）和BlockCanary（用于监控应用卡顿），所以直接取名LogCanary。
 3. 功能：提供脱离ADB时可查看应用内开发者输出的调试日志信息，具体效果如下所示：
-   ![for gitee](./capture/cap.png "")
-   ![for github](https://github.com/zhouyige66/LogCanary/blob/master/capture/cap.png "")
+   ![效果图](./capture/cap.png "效果图")
 ## 实现原理
 实现原理很简单，将开发者输出的日志显示到悬浮窗与日志Activity里，同时记录到日志文件，供后期使用，主要涉及的技术包括：
 1. SPI机制debug版本与release版本日志功能动态实现
