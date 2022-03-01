@@ -18,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void test(View view) {
-        LogCanary.d("roy", "点击了测试：" + System.currentTimeMillis());
+        LogCanary.v("roy", "点击了测试：" + System.currentTimeMillis());
+        LogCanary.d("yige", "点击了测试：" + System.currentTimeMillis());
+        LogCanary.i("zhouyi", "点击了测试：" + System.currentTimeMillis());
+        LogCanary.w("kk20", "点击了测试：" + System.currentTimeMillis());
+        LogCanary.e("zzy", "点击了测试：" + System.currentTimeMillis());
     }
 }
