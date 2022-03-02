@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorTheme">#f47139</color>
-    <color name="colorLogVerbose">#FFFFFF</color>
-    <color name="colorLogDebug">#20B2AA</color>
-    <color name="colorLogInfo">#00EE00</color>
-    <color name="colorLogWarn">#EE7600</color>
-    <color name="colorLogError">#EE0000</color>
+    <color name="colorLogVerbose">#d500f9</color>
+    <color name="colorLogDebug">#2979ff</color>
+    <color name="colorLogInfo">#00c853</color>
+    <color name="colorLogWarn">#ff5722</color>
+    <color name="colorLogError">#ff1744</color>
 </resources>
