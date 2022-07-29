@@ -27,7 +27,6 @@ public class LogCanaryManager {
     private Context context;
     private LogCanaryAbility ability;
 
-    // 私有构造方法
     private LogCanaryManager() {
     }
 
@@ -46,16 +45,23 @@ public class LogCanaryManager {
      */
     public LogCanaryAbility getAbility() {
         if (ability == null) {
-            ServiceLoader<LogCanaryAbility> monitoringAbilities =
-                    ServiceLoader.load(LogCanaryAbility.class);
-            if (monitoringAbilities != null) {
-                ability = monitoringAbilities.iterator().next();
+            ServiceLoader<LogCanaryAbility> loader = ServiceLoader.load(LogCanaryAbility.class);
+            if (loader.iterator().hasNext()) {
+                ability = loader.iterator().next();
+                ability.inject(context);
             }
-            if (ability != null) {
-                ability.setContext(context);
+            if (ability == null) {
+                System.out.println("SPI机制失效,需要注入LogCanaryAbility实现");
             }
         }
         return ability;
+    }
+
+    public void inject(LogCanaryAbility ability) {
+        this.ability = ability;
+        if (context != null) {
+            this.ability.inject(context);
+        }
     }
 
 }

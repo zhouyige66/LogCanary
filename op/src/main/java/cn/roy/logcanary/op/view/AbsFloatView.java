@@ -75,7 +75,7 @@ public abstract class AbsFloatView {
         layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         layoutParams.x = 0;
-        layoutParams.y = 0;
+        layoutParams.y = 100;
 
         // 默认开启监控返回键
         setViewFocusable(true);

@@ -31,3 +31,32 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
+
+def artifact = project.name
+afterEvaluate {
+    plugins.withId('maven-publish') {
+        publishing {
+            repositories {
+                maven {
+                    allowInsecureProtocol = true
+                    url = 'https://nexus.upuphone.com/repository/xr-snapshots/'
+                    credentials {
+                        username 'xr'
+                        password 'eHIy4#MzQ='
+                    }
+                }
+            }
+            publications {
+                // Creates a Maven publication called "release".
+                release(MavenPublication) {
+                    // Applies the component for the release build variant.
+                    from components.release
+                    // You can then customize attributes of the publication as shown below.
+                    groupId = 'com.upuphone.xr.logcanary'
+                    artifactId = artifact
+                    version = rootProject.ext.libReleaseVersion
+                }
+            }
+        }
+    }
+}

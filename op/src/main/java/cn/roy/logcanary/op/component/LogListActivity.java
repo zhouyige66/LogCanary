@@ -1,7 +1,6 @@
 package cn.roy.logcanary.op.component;
 
 import android.annotation.TargetApi;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,17 +10,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Switch;
@@ -29,14 +25,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +39,6 @@ import cn.roy.logcanary.op.R;
 import cn.roy.logcanary.op.adapter.CommonAdapter;
 import cn.roy.logcanary.op.adapter.base.ViewHolder;
 import cn.roy.logcanary.op.bean.LogBean;
-import cn.roy.logcanary.op.logback.LogConfigBuilder;
 import cn.roy.logcanary.op.util.AndroidStorageUtil;
 import cn.roy.logcanary.op.util.AppOpsManagerUtil;
 import cn.roy.logcanary.op.view.LogListAdapter;
@@ -241,6 +234,11 @@ public class LogListActivity extends AppCompatActivity {
                 bottomSheetDialog.hide();
                 requestDrawOverlays();
             });
+            // 悬浮窗日志是否显示
+            Switch sFloatWindowSwitch = bottomSheetDialog.findViewById(R.id.sFloatWindowSwitch);
+            sFloatWindowSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
+                logCanaryDelegate.setFloatWindowShow(b);
+            });
             // 缓存日志条数设置
             EditText etMaxCount = bottomSheetDialog.findViewById(R.id.etMaxCount);
             etMaxCount.setOnEditorActionListener((textView, i, keyEvent) -> {
@@ -297,6 +295,9 @@ public class LogListActivity extends AppCompatActivity {
         } else {
             tvFloatWindowPermissionStatus.setText("已关闭");
         }
+        // 日志功能总开关
+        Switch sFloatWindowSwitch = bottomSheetDialog.findViewById(R.id.sFloatWindowSwitch);
+        sFloatWindowSwitch.setChecked(logCanaryDelegate.isFloatWindowShow());
         // 最大缓存条数
         EditText etMaxCount = bottomSheetDialog.findViewById(R.id.etMaxCount);
         etMaxCount.setText(String.valueOf(logCanaryDelegate.getMaxLogCount()));

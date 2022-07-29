@@ -15,8 +15,9 @@ dependencies {
      * debugImplementation 'com.github.zhouyige66.LogCanary:op:1.0.1'
      * releaseImplementation 'com.github.zhouyige66.LogCanary:no_op:1.0.1'
      */
-//    debugImplementation project(path:":op")
-//    releaseImplementation project(path:":no_op")
-    debugImplementation 'com.github.zhouyige66.LogCanary:op:1.0.1'
-    releaseImplementation 'com.github.zhouyige66.LogCanary:no_op:1.0.1'
+//    debugImplementation 'com.github.zhouyige66.LogCanary:op:1.0.1'
+//    releaseImplementation 'com.github.zhouyige66.LogCanary:no_op:1.0.1'
+    implementation project(path: ':op')
+//    implementation 'cn.roy.logcanary:op:1.1.6'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 }

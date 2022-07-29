@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.roy.logcanary.op">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="cn.roy.logcanary.op"
+    tools:ignore="MissingLeanbackLauncher">
 
     <uses-feature
         android:name="android.software.leanback"
@@ -13,19 +15,29 @@
     <!--锁屏后台运行-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.UNINSTALL_SHORTCUT" />
+
     <application>
         <activity
             android:name=".component.ApplyAlertWindowPermissionActivity"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/ActivityThemeTransparent" />
+
         <activity
             android:name=".component.LogListActivity"
-            android:exported="false"
+            android:enabled="true"
+            android:exported="true"
             android:launchMode="singleTask"
             android:taskAffinity="cn.roy.logcanary.${applicationId}"
-            android:theme="@style/ActivityThemeNoTitle" />
+            android:theme="@style/ActivityThemeNoTitle">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
 
+        <!--桌面快捷方式-->
         <activity-alias
             android:name="cn.roy.logcanary.op.component.FloatLogLauncherActivity"
             android:enabled="true"
@@ -36,9 +48,8 @@
             android:taskAffinity="cn.roy.logcanary.${applicationId}">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!-- Android TV launcher intent -->
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity-alias>
 
@@ -48,12 +59,18 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="cn.roy.logcanary.op.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:authorities="cn.roy.logcanary.op.${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <provider
+            android:name=".LogCanaryContentProvider"
+            android:authorities="cn.roy.logcanary.op.${applicationId}.LogCanaryContentProvider"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 </manifest>

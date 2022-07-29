@@ -70,6 +70,16 @@ public class LogService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
+            boolean showFloatWindow = intent.getBooleanExtra("showFloatWindow", true);
+            if (showFloatWindow) {
+                if (logFloatView != null) {
+                    FloatWindowManager.showFloatView(getApplicationContext(), logFloatView);
+                }
+            } else {
+                if (logFloatView != null) {
+                    FloatWindowManager.hideFloatView(getApplicationContext(), logFloatView);
+                }
+            }
             LogBean bean = intent.getParcelableExtra("data");
             if (bean != null) {
                 if (logFloatView == null) {
@@ -77,7 +87,7 @@ public class LogService extends Service {
                     logFloatView.setViewFocusable(false);
                     int width = logFloatView.getDisplayPoint().x * 2 / 3;
                     logFloatView.getLayoutParams().width = width;
-                    logFloatView.getLayoutParams().height = width * 4 / 3;
+                    logFloatView.getLayoutParams().height = logFloatView.getDisplayPoint().y / 2;
                     FloatWindowManager.addFloatView(getApplicationContext(), logFloatView);
                 } else {
                     FloatWindowManager.showFloatView(getApplicationContext(), logFloatView);

@@ -9,8 +9,7 @@ import android.content.Context;
  * @Version: v1.0
  */
 public interface LogCanaryAbility {
-
-    void setContext(Context context);
+    void inject(Context context);
 
     void v(String tag, String msg);
 
@@ -31,5 +30,4 @@ public interface LogCanaryAbility {
     void e(String tag, String msg);
 
     void e(String tag, String msg, Throwable throwable);
-
 }

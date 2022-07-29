@@ -3,23 +3,4 @@ plugins {
     id 'maven-publish'
     id 'com.github.dcendents.android-maven'
 }
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                // 相应变体
-                from components.debug
-                // 定义发布属性，一般为模块包名
-                groupId =  'cn.roy.logcanary'
-                // 一般填写项目信息比如utlis,upgrade等功能性简洁描述
-                artifactId = 'core'
-                // 版本号
-                version = rootProject.ext.libReleaseVersion
-            }
-        }
-        repositories {
-            mavenLocal()
-        }
-    }
-}
 apply from: "../common.gradle"

@@ -42,6 +42,40 @@
             android:background="#cbcaca" />
     </RelativeLayout>
 
+    <!--浮窗控制-->
+    <RelativeLayout
+        android:id="@+id/vFloatWindow"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/selector_transparent_gray">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="显示浮窗"
+            android:textColor="@android:color/black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/sFloatWindowSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:checked="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="#cbcaca" />
+    </RelativeLayout>
+
+    <!--缓存日志最大条数-->
     <RelativeLayout
         android:id="@+id/vConfigMaxCount"
         android:layout_width="match_parent"
@@ -80,6 +114,7 @@
             android:background="#cbcaca" />
     </RelativeLayout>
 
+    <!--日志功能-->
     <RelativeLayout
         android:id="@+id/vRestart"
         android:layout_width="match_parent"
@@ -112,6 +147,7 @@
             android:background="#cbcaca" />
     </RelativeLayout>
 
+    <!--同步保存日志-->
     <RelativeLayout
         android:id="@+id/vSyncSaveLog"
         android:layout_width="match_parent"
@@ -159,6 +195,7 @@
             android:background="#cbcaca" />
     </RelativeLayout>
 
+    <!--日志条数-->
     <RelativeLayout
         android:id="@+id/vCleanData"
         android:layout_width="match_parent"
@@ -194,6 +231,7 @@
             android:background="#cbcaca" />
     </RelativeLayout>
 
+    <!--关闭页面-->
     <RelativeLayout
         android:id="@+id/vExit"
         android:layout_width="match_parent"

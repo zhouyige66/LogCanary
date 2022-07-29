@@ -26,7 +26,9 @@ public class LogConfigBuilder {
     private LoggerContext loggerContext;
     private Logger rootLogger;
     private Level rootLevel = Level.DEBUG;
-    // logcat配置
+    /**
+     * logcat配置
+     */
     private Level logcatLevel;
     private String logcatEncodePattern;
 
@@ -75,7 +77,7 @@ public class LogConfigBuilder {
         long singleFileSize = 1024 * 1024 * 10;
         // 默认保存最大天数为7
         int maxHistory = 7;
-        FileAppenderProperty prop = new FileAppenderProperty.Builder(Level.DEBUG)
+        FileAppenderProperty prop = new FileAppenderProperty.Builder(Level.TRACE)
                 .setLogFilePath(logFilePath)
                 .setLogFileNamePattern(fileNamePattern)
                 .setSingleFileSize(singleFileSize)
@@ -93,7 +95,7 @@ public class LogConfigBuilder {
             PatternLayoutEncoder encoder = new PatternLayoutEncoder();
             encoder.setContext(loggerContext);
             if (TextUtils.isEmpty(logcatEncodePattern)) {
-                encoder.setPattern("%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n");
+                encoder.setPattern("%d{yyyy-MM-dd HH:mm:ss.SSS} ${PID} [%thread] %-5level %logger{36} [%method-%line] - %msg%n");
             } else {
                 encoder.setPattern(logcatEncodePattern);
             }

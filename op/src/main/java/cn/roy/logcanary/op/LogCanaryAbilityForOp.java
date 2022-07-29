@@ -19,47 +19,57 @@ import cn.roy.logcanary.op.logback.LogConfigBuilder;
 public class LogCanaryAbilityForOp implements LogCanaryAbility {
 
     @Override
-    public void setContext(Context context) {
+    public void inject(Context context) {
         LogCanaryDelegate.getInstance().setContext(context);
         new LogConfigBuilder(context).buildDefault();
     }
 
+    @Override
     public void v(String tag, String msg) {
         addLog(LogBean.VERBOSE, tag, msg);
     }
 
+    @Override
     public void v(String tag, String msg, Throwable throwable) {
         addLog(LogBean.VERBOSE, tag, msg + '\n' + Log.getStackTraceString(throwable));
     }
 
+    @Override
     public void d(String tag, String msg) {
         addLog(LogBean.DEBUG, tag, msg);
     }
 
+    @Override
     public void d(String tag, String msg, Throwable throwable) {
         addLog(LogBean.DEBUG, tag, msg + '\n' + Log.getStackTraceString(throwable));
     }
 
+    @Override
     public void i(String tag, String msg) {
         addLog(LogBean.INFO, tag, msg);
     }
 
+    @Override
     public void i(String tag, String msg, Throwable throwable) {
         addLog(LogBean.INFO, tag, msg + '\n' + Log.getStackTraceString(throwable));
     }
 
+    @Override
     public void w(String tag, String msg) {
         addLog(LogBean.WARN, tag, msg);
     }
 
+    @Override
     public void w(String tag, String msg, Throwable throwable) {
         addLog(LogBean.WARN, tag, msg + '\n' + Log.getStackTraceString(throwable));
     }
 
+    @Override
     public void e(String tag, String msg) {
         addLog(LogBean.ERROR, tag, msg);
     }
 
+    @Override
     public void e(String tag, String msg, Throwable throwable) {
         addLog(LogBean.ERROR, tag, msg + '\n' + Log.getStackTraceString(throwable));
     }

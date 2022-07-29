@@ -14,9 +14,8 @@ import cn.roy.logcanary.core.LogCanaryAbility;
  */
 @AutoService(LogCanaryAbility.class)
 public class LogCanaryAbilityForNoOp implements LogCanaryAbility {
-
     @Override
-    public void setContext(Context context) {
+    public void inject(Context context) {
 
     }
 

@@ -19,7 +19,6 @@ import cn.roy.logcanary.op.bean.LogBean;
 import cn.roy.logcanary.op.bean.TagBean;
 import cn.roy.logcanary.op.component.LogService;
 import cn.roy.logcanary.op.util.AppOpsManagerUtil;
-import cn.roy.logcanary.op.util.LoggerUtil;
 
 /**
  * @Description: 代理
@@ -44,11 +43,24 @@ public final class LogCanaryDelegate {
 
     private Context context;
     private int maxLogCount = 1000;
-    private boolean isEnable = true;// 总开关
-    private boolean isSyncSaveLog = true;// 同步保存日志开关
+    /**
+     * 总开关
+     */
+    private boolean isEnable = true;
+    /**
+     * 浮窗是否显示
+     */
+    private boolean isFloatWindowShow = false;
+    /**
+     * 同步保存日志开关
+     */
+    private boolean isSyncSaveLog = true;
     private final LinkedBlockingQueue<LogBean> logBeanLinkedBlockingQueue;
     private final ReentrantLock lock;
-    private final List<LogBean> originData;// TODO 存在竞态条件，需要考虑同步问题
+    /**
+     * TODO 存在竞态条件，需要考虑同步问题
+     */
+    private final List<LogBean> originData;
     private final Map<String, TagBean> tagBeanMap;
     private final Map<Integer, Set<String>> levelTagMap;
     private volatile Worker mWorker;
@@ -79,6 +91,20 @@ public final class LogCanaryDelegate {
 
     public void setEnable(boolean enable) {
         isEnable = enable;
+    }
+
+    public boolean isFloatWindowShow() {
+        return isFloatWindowShow;
+    }
+
+    public void setFloatWindowShow(boolean floatWindowShow) {
+        isFloatWindowShow = floatWindowShow;
+        if (AppOpsManagerUtil.checkDrawOverlays(context)) {
+            // 构建日志实体，显示在悬浮窗口
+            Intent intent = new Intent(context, LogService.class);
+            intent.putExtra("showFloatWindow", isFloatWindowShow);
+            context.startService(intent);
+        }
     }
 
     public boolean isSyncSaveLog() {
@@ -274,7 +300,7 @@ public final class LogCanaryDelegate {
             broadcastIntent.putExtra("data", bean);
             context.sendBroadcast(broadcastIntent);
             // 判断是否有权限
-            if (AppOpsManagerUtil.checkDrawOverlays(context)) {
+            if (AppOpsManagerUtil.checkDrawOverlays(context) && isFloatWindowShow) {
                 // 构建日志实体，显示在悬浮窗口
                 Intent intent = new Intent(context, LogService.class);
                 intent.putExtra("data", bean);
