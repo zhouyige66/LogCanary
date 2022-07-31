@@ -65,7 +65,7 @@ public class LogConfigBuilder {
     }
 
     public void buildDefault() {
-        setLogcatAppenderProp(Level.DEBUG, FileAppenderProperty.PATTERN_DEFAULT);
+        setLogcatAppenderProp(Level.DEBUG, null);
         configLogcatAppender();
         // 日志文件夹
         String externalFilesDir = AndroidStorageUtil.getExternalFilesDir(context);
@@ -95,7 +95,7 @@ public class LogConfigBuilder {
             PatternLayoutEncoder encoder = new PatternLayoutEncoder();
             encoder.setContext(loggerContext);
             if (TextUtils.isEmpty(logcatEncodePattern)) {
-                encoder.setPattern("%d{yyyy-MM-dd HH:mm:ss.SSS} ${PID} [%thread] %-5level %logger{36} [%method-%line] - %msg%n");
+                encoder.setPattern("%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n");
             } else {
                 encoder.setPattern(logcatEncodePattern);
             }
