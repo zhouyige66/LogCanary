@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -32,43 +33,56 @@ public class ExampleUnitTest {
 
     public void read() {
         byte[] buf = new byte[1024];
-        byte[] data = null;
-        int targetLength = -1;
-        int currentIndex = 0;
         int length = -1;
-        byte[] temp = null;
+        byte[] tempBuf = null;
         try {
             FileInputStream fileInputStream = new FileInputStream(new File(""));
             while ((length = fileInputStream.read(buf)) != -1) {
                 // 解析数据长度
-                if (targetLength == -1) {
-                    if (temp != null) {
-
-                    }
-                    if (length >= 4) {
-                        byte[] h = new byte[4];
-                        System.arraycopy(buf, 0, h, 0, 4);
-                        targetLength = bytesToInt2(h);
-                    } else {
-                        temp = buf;
-                        continue;
-                    }
-                }
-
-                // 读取数据
-                data = new byte[targetLength];
-                if (length > targetLength) {
-                    System.arraycopy(buf, 0, data, currentIndex, targetLength);
+                byte[] merge;
+                if (tempBuf == null) {
+                    merge = merge(tempBuf, buf, length);
                 } else {
-                    System.arraycopy(buf, 0, data, currentIndex, length);
-                    currentIndex = currentIndex + length;
+                    merge = new byte[length];
+                    System.arraycopy(buf, 0, merge, 0, length);
                 }
+                if (merge.length < 4) {
+                    tempBuf = merge;
+                    continue;
+                }
+                process(merge, tempBuf);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void process(byte[] buffer, byte[] temp) {
+        if (buffer.length < 4) {
+            temp = buffer;
+            return;
+        }
+        byte[] sizeBuf = new byte[4];
+        System.arraycopy(buffer, 0, sizeBuf, 0, 4);
+        int dataLength = bytesToInt2(sizeBuf);
+        if (buffer.length > dataLength) {
+            String str = new String(buffer, 0, dataLength, Charset.forName("UTF-8"));
+            // TODO: 2022/8/1 分发数据
+            byte[] data = new byte[buffer.length - dataLength];
+            System.arraycopy(buffer, dataLength, data, 0, data.length);
+            process(data, temp);
+        } else {
+            System.arraycopy(buffer, 0, temp, 0, buffer.length);
+        }
+    }
+
+    private static byte[] merge(byte[] temp, byte[] buf, int bufLength) {
+        byte[] result = new byte[temp.length + buf.length];
+        System.arraycopy(temp, 0, result, 0, temp.length);
+        System.arraycopy(buf, 0, result, temp.length, bufLength);
+        return result;
     }
 
     public static byte[] intToBytes2(int value) {
