@@ -3,11 +3,19 @@ plugins {
     id 'maven-publish'
     id 'com.github.dcendents.android-maven'
 }
+ext {
+    mavenPublishVersion = "1.0.3-SNAPSHOT"
+}
 apply from: "../common.gradle"
 
+android {
+    defaultConfig {
+        versionName "1.0.0-SNAPSHOT"
+    }
+}
 dependencies {
     api project(path: ':core')// 本地开发调试使用
-    implementation ('com.google.auto.service:auto-service:1.0-rc4'){
+    implementation('com.google.auto.service:auto-service:1.0-rc4') {
         transitive(false)
     }
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'

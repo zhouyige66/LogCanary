@@ -34,10 +34,6 @@ public class LogCanaryManager {
         this.context = context.getApplicationContext();
     }
 
-    public boolean hasInit() {
-        return context != null;
-    }
-
     /**
      * SPI机制实现获取注册的服务提供者
      *

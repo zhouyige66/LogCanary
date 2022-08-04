@@ -3,4 +3,13 @@ plugins {
     id 'maven-publish'
     id 'com.github.dcendents.android-maven'
 }
+ext {
+    mavenPublishVersion = "1.0.3-SNAPSHOT"
+}
 apply from: "../common.gradle"
+
+android {
+    defaultConfig {
+        versionName "1.0.0-SNAPSHOT"
+    }
+}

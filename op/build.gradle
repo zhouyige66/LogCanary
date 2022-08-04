@@ -3,16 +3,27 @@ plugins {
     id 'maven-publish'
     id 'com.github.dcendents.android-maven'
 }
+ext {
+    mavenPublishVersion = "1.0.3-SNAPSHOT"
+}
 apply from: "../common.gradle"
 
+android {
+    defaultConfig {
+        versionName "1.0.3-SNAPSHOT"
+    }
+}
 dependencies {
-    api project(path: ':core')// 本地开发调试使用
-//    api "cn.roy.logcanary:core:$rootProject.ext.libReleaseVersion"// 发布到本地仓库使用
-    implementation ('com.google.auto.service:auto-service:1.0-rc4'){
+    // 本地开发调试使用
+    api project(path: ':core')
+    // 发布到本地仓库使用
+//    api "cn.roy.logcanary:core:$rootProject.ext.libReleaseVersion"
+    implementation('com.google.auto.service:auto-service:1.0-rc4') {
         transitive(false)
     }
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
     api 'org.slf4j:slf4j-api:1.7.25'
     api 'com.github.tony19:logback-android:2.0.0'
 }
+
 

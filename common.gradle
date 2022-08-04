@@ -32,9 +32,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
-def artifact = project.name
 afterEvaluate {
     plugins.withId('maven-publish') {
+        def artifact = project.name
+//        def artifactVersion = rootProject.ext.libReleaseVersion
+        def artifactVersion = project.ext.mavenPublishVersion
+        println(artifactVersion)
+
         publishing {
             repositories {
                 maven {
@@ -54,7 +58,7 @@ afterEvaluate {
                     // You can then customize attributes of the publication as shown below.
                     groupId = 'com.upuphone.xr.logcanary'
                     artifactId = artifact
-                    version = rootProject.ext.libReleaseVersion
+                    version = artifactVersion
                 }
             }
         }

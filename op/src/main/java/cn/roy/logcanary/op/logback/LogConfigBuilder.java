@@ -65,7 +65,7 @@ public class LogConfigBuilder {
     }
 
     public void buildDefault() {
-        setLogcatAppenderProp(Level.DEBUG, null);
+        setLogcatAppenderProp(null, null);
         configLogcatAppender();
         // 日志文件夹
         String externalFilesDir = AndroidStorageUtil.getExternalFilesDir(context);
@@ -91,6 +91,7 @@ public class LogConfigBuilder {
         loggerContext.stop();
         rootLogger.setLevel(rootLevel);
         if (logcatLevel != null) {
+            System.out.println("配置logcat appender");
             // 输出格式
             PatternLayoutEncoder encoder = new PatternLayoutEncoder();
             encoder.setContext(loggerContext);
