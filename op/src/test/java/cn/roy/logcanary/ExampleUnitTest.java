@@ -10,6 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -100,6 +104,40 @@ public class ExampleUnitTest {
                 | ((src[2] & 0xFF) << 8)
                 | (src[3] & 0xFF);
         return value;
+    }
+
+    @Test
+    public void testArray(){
+        List<String> list = new ArrayList<>();
+        list.add("0");
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add("6");
+        list.add("7");
+        list.add("8");
+        list.add("9");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                list.subList(0,3).clear();
+                System.out.printf("剩余："+list);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                list.clear();
+            }
+        }).start();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.printf("测试结束");
     }
 
 }

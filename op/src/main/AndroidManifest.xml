@@ -18,6 +18,9 @@
     <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.UNINSTALL_SHORTCUT" />
 
+    <!--处理眼镜端打印多条none protected broadcast的多雾-->
+    <protected-broadcast android:name="intent_action_filter_log_event" />
+
     <application>
         <activity
             android:name=".component.ApplyAlertWindowPermissionActivity"

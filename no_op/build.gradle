@@ -4,7 +4,7 @@ plugins {
     id 'com.github.dcendents.android-maven'
 }
 ext {
-    mavenPublishVersion = "1.0.3-SNAPSHOT"
+    mavenPublishVersion = "1.0.4-SNAPSHOT"
 }
 apply from: "../common.gradle"
 

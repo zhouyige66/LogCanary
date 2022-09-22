@@ -27,7 +27,7 @@ import cn.roy.logcanary.op.util.AppOpsManagerUtil;
  * @Version: v1.0
  */
 public final class LogCanaryDelegate {
-    public static final String INTENT_FILTER_LOG_EVENT = "intent_filter_log_event";
+    public static final String INTENT_FILTER_LOG_EVENT = "intent_action_filter_log_event";
     private static LogCanaryDelegate instance;
 
     public static LogCanaryDelegate getInstance() {
@@ -224,9 +224,14 @@ public final class LogCanaryDelegate {
 
     public void clear() {
         logBeanLinkedBlockingQueue.clear();
-        originData.clear();
-        tagBeanMap.clear();
-        levelTagMap.clear();
+        lock.lock();
+        try {
+            originData.clear();
+            tagBeanMap.clear();
+            levelTagMap.clear();
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void close() {
@@ -248,15 +253,14 @@ public final class LogCanaryDelegate {
         public void run() {
             while (run) {
                 try {
-                    LogBean logBean = logBeanLinkedBlockingQueue.take();// 当无对象的时候，该方法会堵塞
+                    LogBean logBean = logBeanLinkedBlockingQueue.take();
                     originData.add(logBean);
                     int size = originData.size();
                     if (size > maxLogCount) {
                         lock.lock();
                         try {
                             int removeSize = size - maxLogCount + 1;
-                            List<LogBean> removeLogBeans = originData.subList(0, removeSize);
-                            originData.removeAll(removeLogBeans);
+                            originData.subList(0, removeSize).clear();
                         } finally {
                             lock.unlock();
                         }
